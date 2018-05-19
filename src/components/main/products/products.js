@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import './products.css';
 import {connect} from 'react-redux';
 
-import {actionAddToCart, actionUpdateStock} from '../../../actions/actions.js';
+import {actionChangeProductView} from '../../../actions/actions.js';
+
+import Compact from "./compact.js";
+import Expanded from "./expanded.js";
+import Simple from "./simple.js";
 
 class Products extends Component {
     render() {
@@ -10,25 +14,23 @@ class Products extends Component {
             <div className="Products">
                 { !this.props.loadingProducts 
                 ?   <h3>Loading Products...</h3>
-                :   <ul className={this.props.productView}>
-                        { this.props.products.map( (product, index) => 
-                            <li key={index}>
-                                <img src={product.thumbnail} alt="Thumbnail" />
-                                <h3>{product.name}</h3>
-                                <p>{product.description}</p>
-                                <p className={ product.stock === 0 ? "outOfStock" : "inStock" }>In stock: {product.stock}</p>
-                                <p>{product.price}</p>
-                                <button
-                                    disabled={product.stock === 0}
-                                    onClick={ e => { 
-                                        this.props.dispatch(actionAddToCart(product));
-                                        this.props.dispatch(actionUpdateStock(product.id, 1));
-                                    }}>
-                                    Add to Cart
-                                </button>
-                            </li>
-                        )}
-                    </ul>
+                :   
+                    <React.Fragment>
+                        <div>
+                            <h3>Product View:</h3>
+                            <button disabled={this.props.productView === "simple"} onClick={ e => this.props.dispatch(actionChangeProductView("simple"))}>Simple</button>
+                            <button disabled={this.props.productView === "expanded"} onClick={ e => this.props.dispatch(actionChangeProductView("expanded"))}>Expanded</button>
+                            <button disabled={this.props.productView === "compact"} onClick={ e => this.props.dispatch(actionChangeProductView("compact"))}>Compact</button>
+                        </div>
+                        { this.props.productView === "simple" 
+                        ?   <Simple />
+                        : this.props.productView === "expanded" 
+                        ?   <Expanded />
+                        : this.props.productView === "compact" 
+                        ?   <Compact />
+                        : <p>An Error Occured!</p>
+                        }
+                    </React.Fragment>
                 }
             </div>
         );
@@ -38,7 +40,6 @@ class Products extends Component {
 const mapStateToProps = state => {
     return {
         loadingProducts: state.loadingProducts,
-        products: state.products,
         productView: state.productView
     }
 }

@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import './cart.css';
 import {connect} from 'react-redux';
 
-import {actionRemoveFromCart, actionUpdateStock} from "../../../actions/actions.js";
+import {actionRemoveFromCart} from "../../../actions/actions.js";
 
 class Cart extends Component {
     render() {
-
         return (
             <div className="Cart">
                 <h3>Your Cart</h3>
@@ -17,14 +16,14 @@ class Cart extends Component {
                             <p>Product: {item.product.name}</p>
                             <button 
                                 onClick={ e => {
-                                    this.props.dispatch(actionRemoveFromCart(item.product.id));
-                                    this.props.dispatch(actionUpdateStock(item.product.id, -1));
+                                    this.props.dispatch(actionRemoveFromCart(item.product));
                                 }}>
                                 Remove Item
                             </button>
                         </li> 
                     )}
                 </ul>
+                <p>Total Cost: ${this.props.totalPrice.toFixed(2)}</p>
             </div>
         );
     }
@@ -33,7 +32,8 @@ class Cart extends Component {
 const mapStateToProps = state => {
     return {
         cart: state.cart,
-        products: state.products
+        products: state.products,
+        totalPrice: state.totalPrice
     }
 }
 

@@ -11,6 +11,30 @@ let generalReducer = (state={}, action) => {
     }
 }
 
+let viewReducer = (state="simple", action) => {
+    switch(action.type) {
+        case "CHANGE_PRODUCT_VIEW":
+            state = action.view;
+            return state;
+        
+        default:
+            return state;
+    }
+}
+
+let priceReducer = (state=0, action) => {
+    switch(action.type) {
+        case "ADD_TO_CART":
+            return state + action.product.price;
+
+        case "REMOVE_FROM_CART":
+            return state - action.product.price;
+        
+        default:
+            return state;
+    }
+}
+
 let productsReducer = (state=[], action) => {
     switch(action.type) {
         case "ADMIN_ADD_PRODUCT":
@@ -22,10 +46,19 @@ let productsReducer = (state=[], action) => {
         case "ADMIN_MODIFY_PRODUCT":
            return [...state.map( product => product.id === action.product.id ? action.product : product)];
 
-        case "UPDATE_STOCK":
+        case "ADD_TO_CART":
             return [...state.map( product => { 
-                if(product.id === action.productid) {
-                    product.stock -= action.quantity;
+                if(product.id === action.product.id) {
+                    product.stock -= 1;
+                }
+
+                return product;
+            })];
+
+        case "REMOVE_FROM_CART": 
+            return [...state.map( product => { 
+                if(product.id === action.product.id) {
+                    product.stock += 1;
                 }
 
                 return product;
@@ -52,7 +85,7 @@ let cartReducer = (state=[], action) => {
             return cart;
 
         case "REMOVE_FROM_CART":
-            item = state.findIndex( item => item.product.id === action.productid);
+            item = state.findIndex( item => item.product.id === action.product.id);
             cart = [...state];
 
             if(cart[item].quantity !== 1) {
@@ -63,7 +96,7 @@ let cartReducer = (state=[], action) => {
             }
 
             return cart;
-
+        
         default:
             return state;
     }
@@ -72,8 +105,9 @@ let cartReducer = (state=[], action) => {
 let rootReducer = combineReducers({
     products: productsReducer,
     cart: cartReducer,
+    totalPrice: priceReducer,
     loadingProducts: generalReducer,
-    productView: generalReducer,
+    productView: viewReducer,
     actionHistory: generalReducer
 })
 

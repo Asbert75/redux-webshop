@@ -26,18 +26,10 @@ let actionAddToCart = (product) => {
     }
 }
 
-let actionRemoveFromCart = (productid) => {
+let actionRemoveFromCart = (product) => {
     return {
         type: "REMOVE_FROM_CART",
-        productid
-    }
-}
-
-let actionUpdateStock = (productid, quantity) => {
-    return {
-        type: "UPDATE_STOCK",
-        productid,
-        quantity
+        product
     }
 }
 
@@ -47,5 +39,12 @@ let actionUndo = () => {
     }
 }
 
-export {actionUpdateStock, actionAdminAddProduct, actionAdminRemoveProduct, 
+let actionChangeProductView = (view) => {
+    return {
+        type: "CHANGE_PRODUCT_VIEW",
+        view
+    }
+}
+
+export {actionAdminAddProduct, actionAdminRemoveProduct, actionChangeProductView,
     actionAdminModifyProduct, actionAddToCart, actionRemoveFromCart, actionUndo};
