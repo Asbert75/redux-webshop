@@ -113,6 +113,30 @@ let loginReducer = (state=true, action) => {
   }
 }
 
+let changeTempReducer = (state={}, action) => {
+  switch(action.type){
+    case "CHANGE_TEMP":
+      return Object.assign({...state}, action.product);
+    case "SAVE_CHANGES":
+      return {}
+    case "CHANGE_NAME":
+      return Object.assign({...state}, {}, {name: action.value });
+    case "CHANGE_DESCRIPTION":
+      return Object.assign({...state}, {}, {description: action.value });
+    case "CHANGE_THUMBNAIL":
+      return Object.assign({...state}, {}, {thumbnail: action.value });
+    case "CHANGE_PRICE":
+      return Object.assign({...state}, {}, {price: action.value });
+    case "CHANGE_STOCK":
+      return Object.assign({...state}, {}, {stock: action.value });
+    case "CHANGE_ID":
+      return Object.assign({...state}, {}, {id: action.value });
+    default:
+      return state;
+  }
+
+}
+
 let rootReducer = combineReducers({
     products: productsReducer,
     cart: cartReducer,
@@ -121,6 +145,7 @@ let rootReducer = combineReducers({
     productView: viewReducer,
     actionHistory: generalReducer,
     admin: loginReducer,
+    temp: changeTempReducer,
 })
 
 export default rootReducer;
