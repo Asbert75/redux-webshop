@@ -9,17 +9,6 @@
     margin: 0 auto;
 }
 
-
-
-.Products ul.Simple {
-    flex-direction: row;
-    justify-content: center;
-}
-
-.Products ul.Simple li {
-    flex: 0 0 300px;
-}
-
 .Products ul {
     display: flex;
     flex-wrap: wrap;
@@ -47,8 +36,6 @@
 .Products .inStock {
     color: green;
 }
-
-
 
 .Products ul.Expanded {
     flex-direction: row;
@@ -140,8 +127,6 @@
   margin-left: 1em;
   margin-right: 1em;
 }
-
-
 
 .Products ul.Compact .inStock {
   flex-basis: 130px;

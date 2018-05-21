@@ -33,9 +33,27 @@ let actionRemoveFromCart = (product) => {
     }
 }
 
-let actionUndo = () => {
+let actionUndoUser = () => {
     return {
-        type: "UNDO"
+        type: "UNDO_USER"
+    }
+}
+
+let actionRedoUser = () => {
+    return {
+        type: "REDO_USER"
+    }
+}
+
+let actionUndoAdmin = () => {
+    return {
+        type: "UNDO_ADMIN"
+    }
+}
+
+let actionRedoAdmin = () => {
+    return {
+        type: "REDO_ADMIN"
     }
 }
 
@@ -59,4 +77,5 @@ let actionHandleLogout = () => {
 }
 
 export {actionAdminAddProduct, actionAdminRemoveProduct, actionChangeProductView,
-    actionAdminModifyProduct, actionAddToCart, actionRemoveFromCart, actionUndo, actionHandleLogin, actionHandleLogout};
+    actionAdminModifyProduct, actionAddToCart, actionRemoveFromCart, 
+    actionUndoUser, actionRedoUser, actionUndoAdmin, actionRedoAdmin, actionHandleLogin, actionHandleLogout};
