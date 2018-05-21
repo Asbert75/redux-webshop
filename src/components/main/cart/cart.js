@@ -14,6 +14,7 @@ class Cart extends Component {
                         <li key={item.product.id}>
                             <p>Quantity: {item.quantity}</p>
                             <p>Product: {item.product.name}</p>
+                            <p>${item.quantity * item.product.price}</p>
                             <button 
                                 onClick={ e => {
                                     this.props.dispatch(actionRemoveFromCart(item.product));
