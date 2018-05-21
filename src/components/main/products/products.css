@@ -1,17 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600');
+
+* {
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
 .Products {
     padding: 2em;
     margin: 0 auto;
 }
 
-.Products ul.Compact {
-    flex-direction: column;
-    align-items: center;
-}
 
-.Products ul.Compact li {
-    flex: 0 0 auto;
-    width: 100%;
-}
 
 .Products ul.Simple {
     flex-direction: row;
@@ -29,6 +27,11 @@
 
 .Products h3 {
     font-size: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    width: 250px;
+    text-overflow:ellipsis;
 }
 
 .Products p.description {
@@ -47,12 +50,12 @@
 
 
 
-ul.Expanded {
+.Products ul.Expanded {
     flex-direction: row;
     justify-content: center;
 }
 
-ul.Expanded li {
+.Products ul.Expanded li {
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
     flex: 0 0 300px;
     display: inline-block;
@@ -60,38 +63,167 @@ ul.Expanded li {
     padding: 1em;
 }
 
-ul.Expanded img {
+.Products ul.Expanded img {
+    object-fit: contain;
     width: 100%;
+    height: 350px;
+    overflow: hidden;
     margin-bottom: 1em;
 }
 
-ul.Expanded button {
+.Products ul.Expanded button {
+    font-weight: 600;
     width: 100%;
     height: 35px;
     display: flex;
     justify-content: space-evenly;
-    border: none;
-    outline: none;
-    background: rgb(240, 240, 51);
     margin-top: 0.25em;
-    color: #333;
 }
 
-ul.Expanded button:disabled {
-    color: #333;
-    background: rgb(207, 207, 139);
+.Products ul button {
+  border: none;
+  outline: none;
+  background-color:#78afba;
+  color: white;
+  transition: background-color 1s;
 }
 
-ul.Expanded button:hover {
+.Products ul button:disabled {
+    background-color: #bed2d6;
+}
+
+.Products ul button:enabled:hover {
     cursor: pointer;
-    background: rgb(255, 255, 20);
+    background-color: #b6e6ef;
+    color: #277382;
 }
 
-ul.Expanded button:active {
+.Products ul button:active {
     background: rgb(190, 190, 37);
 }
 
-ul.Expanded .pricing {
+.Products ul.Expanded .pricing {
     display: flex;
     justify-content: space-between;
+}
+
+.Products ul.Compact {
+    flex-direction: column;
+    align-items: center;
+}
+
+.Products ul.Compact li {
+  justify-content: center;
+  border-bottom: 1px solid grey;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  width: 90vw;
+}
+
+.Products ul.Compact h3 {
+  flex: 10 1 300px;
+}
+
+.Products ul.Compact img {
+  display: none;
+}
+
+.Products ul.Compact p.description {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  flex-grow: 1;
+  flex-shrink: 1;
+  margin: 0px;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+
+
+.Products ul.Compact .inStock {
+  flex-basis: 130px;
+}
+
+
+.Products ul.Compact .outOfStock {
+  flex-basis: 130px;
+}
+
+.Products ul.Compact button {
+  flex-basis: 200px;
+  padding: 5px;
+}
+
+.Products ul.Compact p.price {
+  display: inline;
+  padding-right: 5px;
+  padding-left: 10px;
+  border-right: 1px solid grey;
+}
+
+.Products ul.Compact .buyText {
+  display: inline;
+  margin-left: 5px;
+  padding-right: 10px;
+}
+
+@media (max-width: 800px) {
+
+  .Products {
+    padding: 0px;
+  }
+
+  .Products ul.Compact h3 {
+    font-size: 14px;
+  }
+
+  .Products ul.Compact .inStock {
+    display: none;
+  }
+
+  .Products ul.Compact .outOfStock {
+    display: none;
+  }
+}
+
+@media (max-width: 450px){
+
+  .Products ul.Compact li {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .Products ul.Compact h3 {
+    flex: 1 1 auto;
+    margin-top: 5px;
+    font-size: 16px;
+  }
+
+  .Products ul.Compact p.description {
+    font-size: 14px;
+    white-space:normal;
+    overflow: visible;
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin: 0px;
+    margin-left: 1em;
+    margin-right: 1em;
+    margin: 0px;
+    padding: 0px;
+  }
+
+  .Products ul.Compact button {
+    flex-basis: auto;
+    width: 150px;
+    padding: 5px;
+    align-self:flex-end;
+  }
+
 }

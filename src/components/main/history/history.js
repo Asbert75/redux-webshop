@@ -9,6 +9,7 @@ class History extends Component {
                 <ul>
                     { this.props.actionHistory.map( (action, index) => <li key={index}>{action}</li> )}
                 </ul>
+                <button>Step Backwards</button><button>Step forward</button>
             </div>
         );
     }

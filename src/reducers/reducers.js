@@ -16,7 +16,7 @@ let viewReducer = (state="simple", action) => {
         case "CHANGE_PRODUCT_VIEW":
             state = action.view;
             return state;
-        
+
         default:
             return state;
     }
@@ -29,7 +29,7 @@ let priceReducer = (state=0, action) => {
 
         case "REMOVE_FROM_CART":
             return state - action.product.price;
-        
+
         default:
             return state;
     }
@@ -47,7 +47,7 @@ let productsReducer = (state=[], action) => {
            return [...state.map( product => product.id === action.product.id ? action.product : product)];
 
         case "ADD_TO_CART":
-            return [...state.map( product => { 
+            return [...state.map( product => {
                 if(product.id === action.product.id) {
                     product.stock -= 1;
                 }
@@ -55,8 +55,8 @@ let productsReducer = (state=[], action) => {
                 return product;
             })];
 
-        case "REMOVE_FROM_CART": 
-            return [...state.map( product => { 
+        case "REMOVE_FROM_CART":
+            return [...state.map( product => {
                 if(product.id === action.product.id) {
                     product.stock += 1;
                 }
@@ -69,7 +69,7 @@ let productsReducer = (state=[], action) => {
     }
 }
 
-let cartReducer = (state=[], action) => { 
+let cartReducer = (state=[], action) => {
     switch(action.type) {
         case "ADD_TO_CART":
             let item = state.findIndex( item => item.product.id === action.product.id);
@@ -96,10 +96,21 @@ let cartReducer = (state=[], action) => {
             }
 
             return cart;
-        
+
         default:
             return state;
     }
+}
+
+let loginReducer = (state=true, action) => {
+  switch(action.type){
+    case "LOGIN":
+      return !state
+    case "LOGOUT":
+      return !state
+    default:
+      return state
+  }
 }
 
 let rootReducer = combineReducers({
@@ -108,7 +119,8 @@ let rootReducer = combineReducers({
     totalPrice: priceReducer,
     loadingProducts: generalReducer,
     productView: viewReducer,
-    actionHistory: generalReducer
+    actionHistory: generalReducer,
+    admin: loginReducer,
 })
 
 export default rootReducer;

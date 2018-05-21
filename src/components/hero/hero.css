@@ -10,3 +10,9 @@
     background-image: -o-radial-gradient(top, circle cover, hsl(199, 31%, 53%) 0%, hsl(214, 62%, 42%) 80%);
     background-image: radial-gradient(top, circle cover, hsl(199, 31%, 53%) 0%, hsl(214, 62%, 42%) 80%);
 }
+
+@media (max-width: 400px) {
+  .Hero {
+    display: none;
+  }
+}

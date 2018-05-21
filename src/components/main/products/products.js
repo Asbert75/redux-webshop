@@ -12,9 +12,10 @@ class Products extends Component {
     render() {
         return (
             <div className="Products">
-                { !this.props.loadingProducts 
+            { !this.props.admin ?
+                 !this.props.loadingProducts
                 ?   <h3>Loading Products...</h3>
-                :   
+                :
                     <React.Fragment>
                         <div>
                             <h3>Product View:</h3>
@@ -22,16 +23,17 @@ class Products extends Component {
                             <button disabled={this.props.productView === "expanded"} onClick={ e => this.props.dispatch(actionChangeProductView("expanded"))}>Expanded</button>
                             <button disabled={this.props.productView === "compact"} onClick={ e => this.props.dispatch(actionChangeProductView("compact"))}>Compact</button>
                         </div>
-                        { this.props.productView === "simple" 
+                        { this.props.productView === "simple"
                         ?   <Simple />
-                        : this.props.productView === "expanded" 
+                        : this.props.productView === "expanded"
                         ?   <Expanded />
-                        : this.props.productView === "compact" 
+                        : this.props.productView === "compact"
                         ?   <Compact />
                         : <p>An Error Occured!</p>
                         }
                     </React.Fragment>
-                }
+                 : null
+            }
             </div>
         );
     }
@@ -40,7 +42,8 @@ class Products extends Component {
 const mapStateToProps = state => {
     return {
         loadingProducts: state.loadingProducts,
-        productView: state.productView
+        productView: state.productView,
+        admin: state.admin,
     }
 }
 

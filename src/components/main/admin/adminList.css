@@ -1,0 +1,12 @@
+.AdminList ul {
+  list-style: none;
+}
+
+.AdminList img {
+  height: 2em;
+}
+
+.AdminList li {
+  border: 1px solid lightgrey;
+  margin: 3em;
+}

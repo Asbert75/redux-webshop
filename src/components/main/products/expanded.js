@@ -5,9 +5,9 @@ import {actionAddToCart} from '../../../actions/actions.js';
 
 class Expanded extends Component {
     render() {
-        return ( 
+        return (
             <ul className="Expanded">
-            { this.props.products.map( (product, index) => 
+            { this.props.products.map( (product, index) =>
                 <li key={index}>
                     <img src={product.thumbnail} alt="Thumbnail" />
                     <h3>{product.name}</h3>
@@ -19,10 +19,10 @@ class Expanded extends Component {
                     <button
                         className="btnBuy"
                         disabled={product.stock === 0}
-                        onClick={ e => { 
+                        onClick={ e => {
                             this.props.dispatch(actionAddToCart(product));
                         }}>
-                        Buy
+                        {  product.stock === 0 ? "N/A" : "Buy"}
                     </button>
                 </li>
             )}

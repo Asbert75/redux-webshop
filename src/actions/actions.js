@@ -46,5 +46,17 @@ let actionChangeProductView = (view) => {
     }
 }
 
+let actionHandleLogin = () => {
+    return {
+      type: "LOGIN"
+    }
+}
+
+let actionHandleLogout = () => {
+    return {
+      type: "LOGOUT"
+    }
+}
+
 export {actionAdminAddProduct, actionAdminRemoveProduct, actionChangeProductView,
-    actionAdminModifyProduct, actionAddToCart, actionRemoveFromCart, actionUndo};
+    actionAdminModifyProduct, actionAddToCart, actionRemoveFromCart, actionUndo, actionHandleLogin, actionHandleLogout};
