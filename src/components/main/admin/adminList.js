@@ -8,6 +8,8 @@ import { actionChangeTemp, actionSaveChanges, actionChangeName, actionChangeDesc
 class AdminList extends Component {
 
     render() {
+
+        const temp = this.props.temp
         return (<div className="AdminList">
             { this.props.admin ?  <div>
                 <h2>Logged in as administrator</h2>
@@ -18,30 +20,30 @@ class AdminList extends Component {
 
                     return(
 
-                      this.props.temp.id === product.id ?
-                    <li key={this.props.temp.id} className="changeItem">
+                      temp.id === product.id ?
+                    <li key={temp.id} className="changeItem">
                         <p>Title:</p>
-                        <input value={this.props.temp.name} onChange={(e)=>{
+                        <input value={temp.name} onChange={(e)=>{
                             this.props.dispatch(actionChangeName(product, e.target.value))
                           }}
                            />
                         <p>Description:</p>
-                        <textarea value={this.props.temp.description} onChange={(e)=>{this.props.dispatch(actionChangeDescription(product, e.target.value))}} />
+                        <textarea value={temp.description} onChange={(e)=>{this.props.dispatch(actionChangeDescription(product, e.target.value))}} />
                         <div>
                             <div>
                                 <p>Thumbnail:</p>
-                                <input className="thumbnail" value={this.props.temp.thumbnail}  onChange={(e)=>{this.props.dispatch(actionChangeThumbnail(product, e.target.value))}} />
+                                <input className="thumbnail" value={temp.thumbnail}  onChange={(e)=>{this.props.dispatch(actionChangeThumbnail(product, e.target.value))}} />
                                 <p>Price:</p>
-                                <input type="number" value={this.props.temp.price} onChange={(e)=>{this.props.dispatch(actionChangePrice(product, e.target.value))}}/>
+                                <input type="number" value={temp.price} onChange={(e)=>{this.props.dispatch(actionChangePrice(product, e.target.value))}}/>
                                 <p>Stock:</p>
-                                <input type="number" value={this.props.temp.stock} onChange={(e)=>{this.props.dispatch(actionChangeStock(product, e.target.value))}} />
-                                <p className="BadInput">{this.props.temp.name.length < 5 ? "The title is to short." : this.props.temp.description.length < 50 ? "The description is to short." : null}</p>
+                                <input type="number" value={temp.stock} onChange={(e)=>{this.props.dispatch(actionChangeStock(product, e.target.value))}} />
+                                <p className="BadInput">{temp.name.length < 5 ? "The title is to short." : temp.description.length < 50 ? "The description is to short." : null}</p>
                             </div>
-                            <img src={this.props.temp.thumbnail} alt="" />
+                            <img src={temp.thumbnail} alt="" />
                         </div>
-                        <button className={this.props.temp.name.length < 5 ? "CantSave" : this.props.temp.description.length < 50 ? "CantSave" : "SaveButton"} onClick={(e)=>{
-                          if(this.props.temp.name.length > 5 && this.props.temp.description.length > 20){
-                            this.props.dispatch(actionAdminModifyProduct(this.props.temp))
+                        <button className={temp.name.length < 5 ? "CantSave" : temp.description.length < 50 ? "CantSave" : "SaveButton"} onClick={(e)=>{
+                          if(temp.name.length > 5 && temp.description.length > 20 && temp.stock.length > 0 && temp.price.length > 0){
+                            this.props.dispatch(actionAdminModifyProduct(temp))
                             this.props.dispatch(actionSaveChanges())
                           }
                         }}>Save Changes</button>
