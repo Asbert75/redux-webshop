@@ -15,8 +15,7 @@ class AdminList extends Component {
                 <h2>Logged in as administrator</h2>
 
                 <ul className="">
-
-                { this.props.products.map( (product, index) => {
+                { this.props.products.present.map( (product, index) => {
 
                     return(
 

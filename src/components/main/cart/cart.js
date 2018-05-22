@@ -14,6 +14,7 @@ class Cart extends Component {
                         <li key={item.product.id}>
                             <p>Quantity: {item.quantity}</p>
                             <p>Product: {item.product.name}</p>
+                            <p>${item.quantity * item.product.price}</p>
                             <button 
                                 onClick={ e => {
                                     this.props.dispatch(actionRemoveFromCart(item.product));
@@ -31,9 +32,9 @@ class Cart extends Component {
 
 const mapStateToProps = state => {
     return {
-        cart: state.cart,
+        cart: state.cart.present,
         products: state.products,
-        totalPrice: state.totalPrice
+        totalPrice: state.totalPrice.present
     }
 }
 

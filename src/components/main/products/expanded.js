@@ -7,7 +7,7 @@ class Expanded extends Component {
     render() {
         return (
             <ul className="Expanded">
-            { this.props.products.map( (product, index) =>
+            { this.props.productList.map( (product, index) =>
                 <li key={index}>
                     <img src={product.thumbnail} alt="Thumbnail" />
                     <h3>{product.name}</h3>
@@ -33,7 +33,7 @@ class Expanded extends Component {
 
 const mapStateToProps = state => {
     return {
-        products: state.products
+        productList: state.products.present
     }
 }
 

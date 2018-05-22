@@ -1,101 +1,213 @@
 import {combineReducers} from 'redux';
 
-let generalReducer = (state={}, action) => {
+let actionReducer = (state=[], action) => {
     switch(action.type) {
-        case "UNDO":
-            // TODO
-            return state;
+        default:
+            return [...state, action.type];
+    }
+}
 
+let generalReducer = (state=[], action) => {
+    switch(action.type) {
         default:
             return state;
     }
 }
 
-let viewReducer = (state="simple", action) => {
+let viewReducer = (state="expanded", action) => {
     switch(action.type) {
         case "CHANGE_PRODUCT_VIEW":
-            state = action.view;
-            return state;
+            return action.view;
 
         default:
             return state;
     }
 }
 
-let priceReducer = (state=0, action) => {
+let priceReducer = (state={}, action) => {
     switch(action.type) {
         case "ADD_TO_CART":
-            return state + action.product.price;
+            return { 
+                past: [...state.past, state.present],
+                present: state.present + action.product.price,
+                future: []
+            };
 
         case "REMOVE_FROM_CART":
-            return state - action.product.price;
+            return { 
+                past: [...state.past, state.present],
+                present: state.present - action.product.price,
+                future: []
+            };
+
+        case "UNDO_USER":
+            const previousPrice = state.past[state.past.length - 1];
+            const newPastPrice = state.past.slice(0, state.past.length - 1);
+            return {
+                past: newPastPrice,
+                present: previousPrice,
+                future: [state.present, ...state.future]
+            }
+
+        case "REDO_USER":
+            const nextPrice = state.future[0];
+            const newFuturePrice = state.future.slice(1);
+            return {
+                past: [...state.past, state.present],
+                present: nextPrice,
+                future: newFuturePrice
+            }
 
         default:
             return state;
     }
 }
 
-let productsReducer = (state=[], action) => {
+let productsReducer = (state={}, action) => {
     switch(action.type) {
         case "ADMIN_ADD_PRODUCT":
-           return [...state, action.product];
+            return {
+                past: [...state.past, [...state.present]],
+                present: [...state.present, action.product],
+                future: []
+            };
 
         case "ADMIN_REMOVE_PRODUCT":
-           return [...state.filter( product => product.id !== action.productid)];
+            return {
+                past: [...state.past, [...state.present]],
+                present: [...state.present.filter( product => product.id !== action.productid)],
+                future: []
+            };
 
         case "ADMIN_MODIFY_PRODUCT":
-           return [...state.map( product => product.id === action.product.id ? action.product : product)];
+            return {
+                past: [...state.past, [...state.present]],
+                present: [...state.present.map( product => product.id === action.product.id ? action.product : product)],
+                future: []
+            };
 
         case "ADD_TO_CART":
-            return [...state.map( product => {
-                if(product.id === action.product.id) {
-                    product.stock -= 1;
-                }
+            return {
+                past: [...state.past, [...state.present]],
+                present: state.present.map( product => {
+                    if(product.id === action.product.id) {
+                        product = {...product, stock: product.stock - 1 };
+                    }
 
-                return product;
-            })];
+                    return product;
+                }),
+                future: []
+            };
 
         case "REMOVE_FROM_CART":
-            return [...state.map( product => {
-                if(product.id === action.product.id) {
-                    product.stock += 1;
-                }
+            return {
+                past: [...state.past, [...state.present]],
+                present: [...state.present.map( product => {
+                    if(product.id === action.product.id) {
+                        product = {...product, stock: product.stock + 1 };
+                    }
 
-                return product;
-            })];
+                    return product;
+                })],
+                future: []
+            };
+        
+        case "UNDO_ADMIN":
+            const previousAdmin = state.past[state.past.length - 1];
+            const newPastAdmin = state.past.slice(0, state.past.length - 1);
+            return {
+                past: newPastAdmin,
+                present: previousAdmin,
+                future: [[...state.present], ...state.future]
+            }
+
+        case "REDO_ADMIN":
+            const nextAdmin = state.future[0];
+            const newFutureAdmin = state.future.slice(1);
+            return {
+                past: [...state.past, [...state.present]],
+                present: nextAdmin,
+                future: newFutureAdmin
+            }
+            
+        case "UNDO_USER":
+            const previousUser = state.past[state.past.length - 1];
+            const newPastUser = state.past.slice(0, state.past.length - 1);
+            return {
+                past: newPastUser,
+                present: previousUser,
+                future: [[...state.present], ...state.future]
+            }
+
+        case "REDO_USER":
+            const nextUser = state.future[0];
+            const newFutureUser = state.future.slice(1);
+            return {
+                past: [...state.past, [...state.present]],
+                present: nextUser,
+                future: newFutureUser
+            }
 
         default:
             return state;
     }
 }
 
-let cartReducer = (state=[], action) => {
+let cartReducer = (state={}, action) => {
     switch(action.type) {
         case "ADD_TO_CART":
-            let item = state.findIndex( item => item.product.id === action.product.id);
-            let cart = [...state];
+            let item = state.present.findIndex( item => item.product.id === action.product.id);
+            let cart = [...state.present];
 
             if(item >= 0) {
-                cart[item].quantity += 1;
+                let newItem = {...cart[item], quantity: cart[item].quantity + 1};
+                cart[item] = newItem;
             }
             else {
                 cart.push({product: action.product, quantity: 1});
             }
 
-            return cart;
+            return {
+                past: [...state.past, [...state.present]],
+                present: cart,
+                future: []
+            };
 
         case "REMOVE_FROM_CART":
-            item = state.findIndex( item => item.product.id === action.product.id);
-            cart = [...state];
+            item = state.present.findIndex( item => item.product.id === action.product.id);
+            cart = [...state.present];
 
             if(cart[item].quantity !== 1) {
-                cart[item].quantity -= 1;
+                let newItem = {...cart[item], quantity: cart[item].quantity - 1};
+                cart[item] = newItem;
             }
             else {
                 cart.splice(item, 1);
             }
 
-            return cart;
+            return {
+                past: [...state.past, [...state.present]],
+                present: cart,
+                future: []
+            };
+
+        case 'UNDO_USER':
+            const previous = state.past[state.past.length - 1];
+            const newPast = state.past.slice(0, state.past.length - 1);
+            return {
+                past: newPast,
+                present: previous,
+                future: [[...state.present], ...state.future]
+            }
+
+        case 'REDO_USER':
+            const next = state.future[0];
+            const newFuture = state.future.slice(1);
+            return {
+                past: [...state.past, [...state.present]],
+                present: next,
+                future: newFuture
+            }
 
         default:
             return state;
@@ -143,7 +255,7 @@ let rootReducer = combineReducers({
     totalPrice: priceReducer,
     loadingProducts: generalReducer,
     productView: viewReducer,
-    actionHistory: generalReducer,
+    actionHistory: actionReducer,
     admin: loginReducer,
     temp: changeTempReducer,
 })

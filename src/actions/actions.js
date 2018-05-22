@@ -33,9 +33,27 @@ let actionRemoveFromCart = (product) => {
     }
 }
 
-let actionUndo = () => {
+let actionUndoUser = () => {
     return {
-        type: "UNDO"
+        type: "UNDO_USER"
+    }
+}
+
+let actionRedoUser = () => {
+    return {
+        type: "REDO_USER"
+    }
+}
+
+let actionUndoAdmin = () => {
+    return {
+        type: "UNDO_ADMIN"
+    }
+}
+
+let actionRedoAdmin = () => {
+    return {
+        type: "REDO_ADMIN"
     }
 }
 
@@ -108,28 +126,30 @@ let actionChangeStock = (product, value) => {
   }
 }
 let actionChangeId = (product, value) => {
-  return{
-    type: "CHANGE_ID",
-    product: product,
-    value: value,
-  }
+    return {
+        type: "CHANGE_ID",
+        product: product,
+        value: value,
+    }
 }
 
-export {actionAdminAddProduct,
-  actionAdminRemoveProduct,
-  actionChangeProductView,
-  actionAdminModifyProduct,
-  actionAddToCart,
-  actionRemoveFromCart,
-  actionUndo,
-  actionHandleLogin,
-  actionHandleLogout,
-  actionChangeTemp,
-  actionSaveChanges,
-  actionChangeName,
-  actionChangeDescription,
-  actionChangeThumbnail,
-  actionChangePrice,
-  actionChangeStock,
-  actionChangeId,
+export {
+    actionAdminAddProduct,
+    actionAdminRemoveProduct,
+    actionChangeProductView,
+    actionAdminModifyProduct,
+    actionAddToCart,
+    actionRemoveFromCart,
+    actionUndoUser, 
+    actionRedoUser,
+    actionHandleLogin,
+    actionHandleLogout,
+    actionChangeTemp,
+    actionSaveChanges,
+    actionChangeName,
+    actionChangeDescription,
+    actionChangeThumbnail,
+    actionChangePrice,
+    actionChangeStock,
+    actionChangeId,
 };
