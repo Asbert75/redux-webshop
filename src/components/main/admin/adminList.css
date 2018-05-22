@@ -1,5 +1,3 @@
-
-
 .AdminList ul {
   list-style: none;
   display: flex;
@@ -26,8 +24,6 @@
   padding: 1em;
 }
 
-
-
 .AdminList .thumbnail {
   white-space: nowrap;
   overflow: hidden;
@@ -41,7 +37,6 @@
   width: 100%;
   padding: 3px;
 }
-
 
 .AdminList textarea {
   padding: 3px;
@@ -65,7 +60,6 @@
   background-color: #e3f9f7;
   border: 1px solid #bedde0;
 }
-
 
 .AdminList button {
   margin-top: .5em;

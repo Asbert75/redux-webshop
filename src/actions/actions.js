@@ -140,6 +140,12 @@ let actionToggleHistory = (history) => {
   }
 }
 
+let actionToggleCart = () => {
+    return {
+        type: "TOGGLE_CART"
+    }
+}
+
 export {
     actionAdminAddProduct,
     actionAdminRemoveProduct,
@@ -162,4 +168,5 @@ export {
     actionChangeStock,
     actionChangeId,
     actionToggleHistory,
+    actionToggleCart
 };

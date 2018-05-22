@@ -26,7 +26,7 @@ class AdminList extends Component {
 
         const temp = this.props.temp
         return (<div className="AdminList">
-            { this.props.admin ?  <div>
+            <div>
                 <h2>Logged in as administrator</h2>
                 <button className="AddButton"
                         onClick={()=>{
@@ -105,10 +105,7 @@ class AdminList extends Component {
                   }) }
                 </ul>
                 </div>
-
-              : null
-            }
-              </div>
+            </div>
         );
     }
 }

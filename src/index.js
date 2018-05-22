@@ -196,6 +196,7 @@ const initialState = {
     actionHistory: [],
     admin: true,
     temp: {},
+    showCart: false
 }
 
 const store = createStore(rootReducer, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());

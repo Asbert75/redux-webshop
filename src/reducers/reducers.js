@@ -258,6 +258,15 @@ let toggleHistoryReducer = (state=false, action) => {
     }
 }
 
+let cartViewReducer = (state=false, action) => {
+    switch(action.type) {
+        case "TOGGLE_CART":
+            return !state;
+        default:
+            return state;
+    }
+}
+
 let rootReducer = combineReducers({
     products: productsReducer,
     cart: cartReducer,
@@ -268,6 +277,7 @@ let rootReducer = combineReducers({
     admin: loginReducer,
     temp: changeTempReducer,
     showHistory: toggleHistoryReducer,
+    showCart: cartViewReducer
 })
 
 export default rootReducer;

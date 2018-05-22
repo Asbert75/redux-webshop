@@ -8,9 +8,6 @@ class History extends Component {
     render() {
         return (
           <React.Fragment>
-            <button id="toggleHistory" onClick={()=>{
-              this.props.dispatch(actionToggleHistory(this.props.showHistory))
-            }}>{!this.props.showHistory ? "Show history" : "Hide history"}</button>
             <div className={this.props.showHistory ? "History showHistory" : "History hideHistory"}>
 
               {  !this.props.admin ?

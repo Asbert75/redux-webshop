@@ -1,25 +1,29 @@
 import React, { Component } from 'react';
 import './main.css';
-
+import {connect}from 'react-redux';
 
 import Products from "./products/products.js";
 import History from "./history/history.js";
 import Cart from "./cart/cart.js";
-import Login from "./admin/login.js";
 import AdminList from "./admin/adminList.js"
 
 class Main extends Component {
     render() {
         return (
             <div className="Main">
-                <Products />
-                <AdminList />
-                <Cart />
+                { this.props.admin ? <AdminList /> : <Products /> }
+                { this.props.showCart && <Cart /> }
                 <History />
-                <Login />
             </div>
         );
     }
 }
 
-export default Main;
+const mapStateToProps = state => {
+    return {
+        admin: state.admin,
+        showCart: state.showCart
+    }
+}
+
+export default connect(mapStateToProps)(Main);
