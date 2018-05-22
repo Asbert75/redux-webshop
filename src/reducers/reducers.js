@@ -27,14 +27,14 @@ let viewReducer = (state="expanded", action) => {
 let priceReducer = (state={}, action) => {
     switch(action.type) {
         case "ADD_TO_CART":
-            return { 
+            return {
                 past: [...state.past, state.present],
                 present: state.present + action.product.price,
                 future: []
             };
 
         case "REMOVE_FROM_CART":
-            return { 
+            return {
                 past: [...state.past, state.present],
                 present: state.present - action.product.price,
                 future: []
@@ -68,7 +68,7 @@ let productsReducer = (state={}, action) => {
         case "ADMIN_ADD_PRODUCT":
             return {
                 past: [...state.past, [...state.present]],
-                present: [...state.present, action.product],
+                present: [action.product, ...state.present],
                 future: []
             };
 
@@ -111,7 +111,7 @@ let productsReducer = (state={}, action) => {
                 })],
                 future: []
             };
-        
+
         case "UNDO_ADMIN":
             const previousAdmin = state.past[state.past.length - 1];
             const newPastAdmin = state.past.slice(0, state.past.length - 1);
@@ -129,7 +129,7 @@ let productsReducer = (state={}, action) => {
                 present: nextAdmin,
                 future: newFutureAdmin
             }
-            
+
         case "UNDO_USER":
             const previousUser = state.past[state.past.length - 1];
             const newPastUser = state.past.slice(0, state.past.length - 1);
@@ -246,7 +246,16 @@ let changeTempReducer = (state={}, action) => {
     default:
       return state;
   }
+}
 
+let toggleHistoryReducer = (state=false, action) => {
+  switch(action.type){
+    case "TOGGLE_HISTORY":
+      console.log(action.show)
+      return action.show;
+    default:
+      return state
+    }
 }
 
 let rootReducer = combineReducers({
@@ -258,6 +267,7 @@ let rootReducer = combineReducers({
     actionHistory: actionReducer,
     admin: loginReducer,
     temp: changeTempReducer,
+    showHistory: toggleHistoryReducer,
 })
 
 export default rootReducer;

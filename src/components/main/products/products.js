@@ -16,8 +16,7 @@ class Products extends Component {
                 ?   <h3>Loading Products...</h3>
                 :
                     <React.Fragment>
-                        <div>
-                            <h3>Product View:</h3>
+                        <div className="viewOpts">
                             <button disabled={this.props.productView === "expanded"} onClick={ e => this.props.dispatch(actionChangeProductView("expanded"))}>Expanded</button>
                             <button disabled={this.props.productView === "compact"} onClick={ e => this.props.dispatch(actionChangeProductView("compact"))}>Compact</button>
                         </div>

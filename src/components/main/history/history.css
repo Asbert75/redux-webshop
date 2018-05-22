@@ -1,0 +1,76 @@
+.History {
+  position: fixed;
+  top: 0px;
+  left: 100%;
+  background-color: rgba(30, 49, 81,.7);
+  padding: 3em;
+  color: white;
+  width: 20%;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.History ul {
+  list-style: none;
+}
+
+.History li {
+  padding: 3px;
+  text-transform: lowercase;
+}
+
+#toggleHistory {
+  z-index: 1000;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-size: 20px;
+}
+
+#toggleHistory:focus {
+  outline: none;
+}
+
+.showHistory {
+  transform: translateX(-100%);
+  transition: transform 1s;
+}
+
+.hideHistory {
+  transform: translateX(0%);
+  transition: transform 1s;
+}
+
+
+.History button {
+  color: white;
+  font-size: 20px;
+  border: none;
+  background-color: transparent;
+  padding: .5em;
+}
+
+.History button:disabled {
+  color: grey;
+}
+
+@media(max-width: 1500px){
+  .History {
+    width: 30%;
+  }
+}
+
+@media(max-width: 1000px){
+  .History {
+    width: 50%;
+  }
+}
+
+@media(max-width: 500px){
+  .History {
+    width: 100%;
+  }
+}

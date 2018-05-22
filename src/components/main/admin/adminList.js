@@ -2,17 +2,38 @@ import React, { Component } from 'react';
 import './adminList.css';
 import {connect} from 'react-redux';
 
-import { actionChangeTemp, actionSaveChanges, actionChangeName, actionChangeDescription, actionChangeThumbnail, actionChangePrice, actionChangeStock, actionAdminModifyProduct, actionAdminRemoveProduct } from "../../../actions/actions.js";
+import { actionChangeTemp, actionSaveChanges, actionChangeName, actionChangeDescription, actionChangeThumbnail, actionChangePrice, actionChangeStock, actionAdminModifyProduct, actionAdminRemoveProduct, actionAdminAddProduct } from "../../../actions/actions.js";
 
 
 class AdminList extends Component {
 
+    calcId() {
+      let newId = 0;
+
+      this.props.products.present.filter(product => {
+        return newId < product.id ? newId = product.id : null
+      })
+      return newId+1
+    }
     render() {
+      const newProduct = { id: this.calcId(),
+                 name: "",
+                 description: "",
+                 thumbnail: "",
+                 price: "",
+                 stock: "",
+                 }
 
         const temp = this.props.temp
         return (<div className="AdminList">
             { this.props.admin ?  <div>
                 <h2>Logged in as administrator</h2>
+                <button className="AddButton"
+                        onClick={()=>{
+                          this.props.dispatch(actionAdminAddProduct(newProduct))
+                          this.props.dispatch(actionChangeTemp(newProduct))
+                          }}
+                >Add product</button>
 
                 <ul className="">
                 { this.props.products.present.map( (product, index) => {
@@ -36,12 +57,25 @@ class AdminList extends Component {
                                 <input type="number" value={temp.price} onChange={(e)=>{this.props.dispatch(actionChangePrice(product, e.target.value))}}/>
                                 <p>Stock:</p>
                                 <input type="number" value={temp.stock} onChange={(e)=>{this.props.dispatch(actionChangeStock(product, e.target.value))}} />
-                                <p className="BadInput">{temp.name.length < 5 ? "The title is to short." : temp.description.length < 50 ? "The description is to short." : null}</p>
+                                <p className="BadInput">{
+                                                        temp.name.length < 5 ? "The title is to short." :
+                                                        temp.description.length < 50 ? "The description is to short." :
+                                                        temp.price <= 0 ? "the product must have a price." :
+                                                        temp.stock.length <= 0 ? "the product must have a stock, if N/A enter '0'." : null
+                                                        }
+                                                        </p>
                             </div>
                             <img src={temp.thumbnail} alt="" />
                         </div>
-                        <button className={temp.name.length < 5 ? "CantSave" : temp.description.length < 50 ? "CantSave" : "SaveButton"} onClick={(e)=>{
-                          if(temp.name.length > 5 && temp.description.length > 20 && temp.stock.length > 0 && temp.price.length > 0){
+                        <button className={temp.name.length < 5 ? "CantSave" :
+                                           temp.description.length < 50 ? "CantSave" :
+                                           temp.price <= 0 ? "CantSave" :
+                                           temp.stock.length <= 0 ? "CantSave" : "SaveButton"} onClick={(e)=>{
+
+                          if(temp.name.length > 5 &&
+                            temp.description.length > 20 &&
+                            temp.stock.toString().length > 0 &&
+                            temp.price.toString().length > 0){
                             this.props.dispatch(actionAdminModifyProduct(temp))
                             this.props.dispatch(actionSaveChanges())
                           }

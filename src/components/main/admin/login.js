@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import './login.css';
 
 import {actionHandleLogin} from '../../../actions/actions.js';
 import {actionHandleLogout} from '../../../actions/actions.js'
@@ -15,7 +16,7 @@ class Login extends Component {
               :
               <button onClick={ e => {
                     this.props.dispatch(actionHandleLogin());
-                }}>Login</button>
+                }}>Login as admin</button>
             }
             </div>
         );

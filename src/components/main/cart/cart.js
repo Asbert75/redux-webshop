@@ -9,22 +9,23 @@ class Cart extends Component {
         return (
             <div className="Cart">
                 <h3>Your Cart</h3>
+                <p>Total Cost: ${this.props.totalPrice.toFixed(2)}</p>
                 <ul>
-                    { this.props.cart.map( item => 
+                    { this.props.cart.map( item =>
                         <li key={item.product.id}>
+                            <img src={item.product.thumbnail} />
+                            <p>{item.product.name}</p>
                             <p>Quantity: {item.quantity}</p>
-                            <p>Product: {item.product.name}</p>
                             <p>${item.quantity * item.product.price}</p>
-                            <button 
+                            <button
                                 onClick={ e => {
                                     this.props.dispatch(actionRemoveFromCart(item.product));
                                 }}>
                                 Remove Item
                             </button>
-                        </li> 
+                        </li>
                     )}
                 </ul>
-                <p>Total Cost: ${this.props.totalPrice.toFixed(2)}</p>
             </div>
         );
     }

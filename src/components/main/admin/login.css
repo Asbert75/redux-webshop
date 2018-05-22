@@ -1,0 +1,15 @@
+.Login button {
+  z-index: 1000;
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-size: 20px;
+  
+}
+
+.Login button:focus {
+  outline: none;
+}

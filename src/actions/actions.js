@@ -1,7 +1,7 @@
 let actionAdminAddProduct = (product) => {
     return {
         type: "ADMIN_ADD_PRODUCT",
-        product
+        product: product,
     }
 }
 
@@ -133,6 +133,13 @@ let actionChangeId = (product, value) => {
     }
 }
 
+let actionToggleHistory = (history) => {
+  return {
+      type: "TOGGLE_HISTORY",
+      show: !history,
+  }
+}
+
 export {
     actionAdminAddProduct,
     actionAdminRemoveProduct,
@@ -140,8 +147,10 @@ export {
     actionAdminModifyProduct,
     actionAddToCart,
     actionRemoveFromCart,
-    actionUndoUser, 
+    actionUndoUser,
     actionRedoUser,
+    actionUndoAdmin,
+    actionRedoAdmin,
     actionHandleLogin,
     actionHandleLogout,
     actionChangeTemp,
@@ -152,4 +161,5 @@ export {
     actionChangePrice,
     actionChangeStock,
     actionChangeId,
+    actionToggleHistory,
 };
