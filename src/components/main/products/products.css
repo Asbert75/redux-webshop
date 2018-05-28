@@ -1,0 +1,236 @@
+.Products {
+    margin: 0 auto;
+    width: 100%;
+}
+
+.Products ul {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.Products .viewOpts {
+    text-align: left;
+    background: rgb(224, 224, 224);
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+    margin-bottom: 1em;
+    padding-left: 5em;
+}
+
+.Products .viewOpts button {
+    border: none;
+    padding: .5em;
+    font-size: 16px;
+    margin: .5em;
+    background-color: #2bff8a;
+    font-weight: 600;
+}
+
+.Products .viewOpts button:disabled {
+    background-color: #b6b6b6;
+}
+
+.Products .viewOpts button:enabled:hover {
+    background-color: #1c9955;
+}
+
+.Products h3 {
+    font-size: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    width: 250px;
+    text-overflow:ellipsis;
+}
+
+.Products p.description {
+    font-size: 14px;
+    width: 300px;
+    margin-top: 0.25em;
+    margin-bottom: 1em;
+}
+
+.Products .outOfStock {
+    color: red;
+}
+
+.Products .inStock {
+    color: green;
+}
+
+.Products ul.Expanded {
+    flex-direction: row;
+    justify-content: center;
+}
+
+.Products ul.Expanded li {
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    flex: 0 0 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0.5em;
+    padding: 1em;
+}
+
+.Products ul.Expanded img {
+    object-fit: contain;
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+    margin-bottom: 1em;
+}
+
+.Products ul.Expanded button {
+    font-weight: 600;
+    width: 100%;
+    height: 35px;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 0.25em;
+}
+
+.Products ul button {
+    border: none;
+    outline: none;
+    background-color:#78afba;
+    color: white;
+}
+
+.Products ul button:disabled {
+    background-color: #bed2d6;
+}
+
+.Products ul button:enabled:hover {
+    cursor: pointer;
+    background-color: #b6e6ef;
+    color: #277382;
+}
+
+.Products ul button:active {
+    background: rgb(190, 190, 37);
+}
+
+.Products ul.Expanded .pricing {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Products ul.Compact {
+    flex-direction: column;
+    align-items: center;
+}
+
+.Products ul.Compact li {
+  justify-content: center;
+  border-bottom: 1px solid grey;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  width: 90vw;
+}
+
+.Products ul.Compact h3 {
+  flex: 1 2 300px;
+}
+
+.Products ul.Compact img {
+  display: none;
+}
+
+.Products ul.Compact p.description {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  flex-grow: 1;
+  flex-shrink: 1;
+  margin: 0px;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.Products ul.Compact .inStock {
+  flex-basis: 130px;
+}
+
+
+.Products ul.Compact .outOfStock {
+  flex-basis: 130px;
+}
+
+.Products ul.Compact button {
+  flex-basis: 200px;
+  padding: 5px;
+}
+
+.Products ul.Compact p.price {
+  display: inline;
+  padding-right: 5px;
+  padding-left: 10px;
+  border-right: 1px solid grey;
+}
+
+.Products ul.Compact .buyText {
+  display: inline;
+  margin-left: 5px;
+  padding-right: 10px;
+}
+
+@media (max-width: 800px) {
+
+  .Products {
+    padding: 0px;
+  }
+
+  .Products ul.Compact h3 {
+    font-size: 14px;
+  }
+
+  .Products ul.Compact .inStock {
+    display: none;
+  }
+
+  .Products ul.Compact .outOfStock {
+    display: none;
+  }
+}
+
+@media (max-width: 450px){
+
+  .Products ul.Compact li {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .Products ul.Compact h3 {
+    flex: 1 1 auto;
+    margin-top: 5px;
+    font-size: 16px;
+  }
+
+  .Products ul.Compact p.description {
+    font-size: 14px;
+    white-space:normal;
+    overflow: visible;
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin: 0px;
+    margin-left: 1em;
+    margin-right: 1em;
+    margin: 0px;
+    padding: 0px;
+  }
+
+  .Products ul.Compact button {
+    flex-basis: auto;
+    width: 150px;
+    padding: 5px;
+    align-self:flex-end;
+  }
+
+}

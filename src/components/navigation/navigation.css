@@ -1,0 +1,23 @@
+nav {
+    padding: 2em;
+    z-index: 100;
+}
+
+nav li {
+    display: inline;
+    margin: 20px;
+}
+
+nav button {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    font-weight: 600;
+    min-width: 100px;
+}
+
+nav button:hover {
+    cursor: pointer;
+    color: rgb(87, 87, 87);
+}
